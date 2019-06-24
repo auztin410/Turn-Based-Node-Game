@@ -41,14 +41,16 @@ function d20(i) {
 }
 
 function findAbilities(arr) {
-    var skills = [];
-    for(var i = 0; i < arr.length; i++) {
-        var res = abilities.find(item => {
-            return item.Name === arr[i];
-        });
-        skills.push(res);
-    }
-    return skills;
+    var t = arr[0];
+        console.log("Running find and replace abilities!!!");
+        var skills = [];
+        for(var i = 0; i < arr.length; i++) {
+            var res = abilities.find(item => {
+                return item.Name === arr[i];
+            });
+            skills.push(res);
+        }
+        return skills;
 }
 
 function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, Resistance, Dodge, Parry, Block, Abilities){
@@ -75,8 +77,10 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
         console.log(`The ${this.Name} has been slain and you roll a ${result} for loot.`);
     },
     this.Skills = function() {
-        var result = findAbilities(this.Abilities);
-        this.Abilities = result;
+        if(typeof this.Abilities[0] != "object") {
+            var result = findAbilities(this.Abilities);
+            this.Abilities = result;
+        }
     }
 }
 
@@ -89,4 +93,6 @@ var allCreatures = [
 
 goblin.Skills();
 
+console.log(goblin.Abilities);
+goblin.Skills();
 console.log(goblin.Abilities);
