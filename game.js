@@ -1,6 +1,7 @@
 var inquirer = require("inquirer");
 var abilities = require("./abilities.json");
 
+// This is the Character object.
 var character = {
     Name: "",
     Level: 0,
@@ -24,12 +25,14 @@ var character = {
     Block: 0
 }
 
+// Sum an array of numbers.
 arrSum = function(arr){
     return arr.reduce(function(a,b){
       return a + b
     }, 0);
   }
 
+// Simple d20 roll function as "i" is how many times to roll the die.
 function d20(i) {
     var arr = []
     var res;
@@ -40,6 +43,7 @@ function d20(i) {
     return arrSum(arr);
 }
 
+// This function will search the abilities.json for all abilities in the array to be replaced by string value.
 function findAbilities(arr) {
     var t = arr[0];
         console.log("Running find and replace abilities!!!");
@@ -53,6 +57,7 @@ function findAbilities(arr) {
         return skills;
 }
 
+// The base template for creates to build out additional ones with the constructor function.
 function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, Resistance, Dodge, Parry, Block, Abilities){
     this.Name = Name,
     this.HP = Constitution*10,
@@ -81,18 +86,26 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
             var result = findAbilities(this.Abilities);
             this.Abilities = result;
         }
+    },
+    this.Action = function(ability) {
+            var action = this.Abilities.find(item => {return item.Name === ability});
+            // console.log(action);
+            console.log(`The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`);
+
     }
 }
 
+// Creating each creature with their stats.
 var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, 1, 1, 0, 0, ["Punch", "Slash"]);
 var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, 0, 0, 0, 0, ["Punch"]);
+goblin.Skills();
 
+// Putting all the creatures into an array to easily search for them later.
 var allCreatures = [
     goblin, kobold
 ];
 
-goblin.Skills();
 
+// Just a testing area for the moment to ensure functions are working properly.
 console.log(goblin.Abilities);
-goblin.Skills();
-console.log(goblin.Abilities);
+goblin.Action("Punch");

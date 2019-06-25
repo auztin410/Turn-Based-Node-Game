@@ -4,13 +4,13 @@
         "BaseDMG": 1,
         "Modifier": [true, ["Strength"], ["Add Str"]],
         "Requirement": [],
-        "Text": "Uses its closed fist to attack you."
+        "Text": "uses its closed fist to attack you."
     },
     {
         "Name": "Slash",
         "BaseDMG": 2,
         "Modifier": [true, ["Strength", "Dexterity"], ["+Str", "+Dex"]],
         "Requirement": ["Sword", "Dagger"],
-        "Text": "Uses its weapon to slash at you."
+        "Text": "uses its weapon to slash at you."
     }
 ]
