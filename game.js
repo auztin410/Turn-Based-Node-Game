@@ -45,8 +45,6 @@ function d20(i) {
 
 // This function will search the abilities.json for all abilities in the array to be replaced by string value.
 function findAbilities(arr) {
-    var t = arr[0];
-        console.log("Running find and replace abilities!!!");
         var skills = [];
         for(var i = 0; i < arr.length; i++) {
             var res = abilities.find(item => {
@@ -88,17 +86,22 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
         }
     },
     this.Action = function(ability) {
+            this.Skills();
             var action = this.Abilities.find(item => {return item.Name === ability});
-            // console.log(action);
-            console.log(`The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`);
-
+            if(action != undefined) {
+                // console.log(`The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`);
+                var atk = `The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`;
+                return atk;
+            }
+            else {
+                console.log("That ability can't be used.");
+            }
     }
 }
 
 // Creating each creature with their stats.
 var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, 1, 1, 0, 0, ["Punch", "Slash"]);
 var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, 0, 0, 0, 0, ["Punch"]);
-goblin.Skills();
 
 // Putting all the creatures into an array to easily search for them later.
 var allCreatures = [
@@ -108,4 +111,5 @@ var allCreatures = [
 
 // Just a testing area for the moment to ensure functions are working properly.
 console.log(goblin.Abilities);
-goblin.Action("Punch");
+kobold.Action("Punch");
+console.log(kobold.Action("Punch"));
