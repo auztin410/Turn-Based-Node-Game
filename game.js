@@ -55,6 +55,27 @@ function findAbilities(arr) {
         return skills;
 }
 
+// This function is for calculating DMG via the target's defensive stats.
+function defenseCalc(action, target){
+    var times = action.Type.length;
+    var skill = action.Type
+    var dmgReduction = 0;
+    for(var i = 0; i < times; i++) {
+        switch(skill[i]) {
+            case "Physical":
+                dmgReduction = dmgReduction - target.Armor;
+                break;
+            case "Magical":
+                dmgReduction = dmgReduction - target.Resistance;
+                break;
+            case "Blunt":
+                dmgReduction = dmgReduction - 1;
+                break; 
+        }
+    }
+    console.log(dmgReduction);
+}
+
 // The base template for creates to build out additional ones with the constructor function.
 function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, Resistance, Dodge, Parry, Block, Abilities){
     this.Name = Name,
@@ -85,9 +106,10 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
             this.Abilities = result;
         }
     },
-    this.Action = function(ability) {
+    this.Action = function(ability, target) {
             this.Skills();
             var action = this.Abilities.find(item => {return item.Name === ability});
+            defenseCalc(action, target);
             if(action != undefined) {
                 // console.log(`The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`);
                 var atk = `The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`;
@@ -111,5 +133,5 @@ var allCreatures = [
 
 // Just a testing area for the moment to ensure functions are working properly.
 console.log(goblin.Abilities);
-kobold.Action("Punch");
-console.log(kobold.Action("Punch"));
+// kobold.Action("Punch");
+console.log(kobold.Action("Punch", goblin));
