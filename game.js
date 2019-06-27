@@ -69,7 +69,9 @@ function defenseCalc(action, target){
                 dmgReduction = dmgReduction - target.Resistance;
                 break;
             case "Blunt":
-                dmgReduction = dmgReduction - 1;
+                if(target.ArmorType === "Plate") {
+                    dmgReduction = dmgReduction - 1;
+                }
                 break; 
         }
     }
@@ -77,7 +79,7 @@ function defenseCalc(action, target){
 }
 
 // The base template for creates to build out additional ones with the constructor function.
-function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, Resistance, Dodge, Parry, Block, Abilities){
+function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, ArmorType, Resistance, Dodge, Parry, Block, Abilities){
     this.Name = Name,
     this.HP = Constitution*10,
     this.Challenge = Challenge,
@@ -90,6 +92,7 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
     this.Wisdom = Wisdom,
     this.Speed = Speed,
     this.Armor = Armor,
+    this.ArmorType = ArmorType,
     this.Resistance = Resistance,
     this.Dodge = Dodge,
     this.Parry = Parry,
@@ -122,8 +125,8 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
 }
 
 // Creating each creature with their stats.
-var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, 1, 1, 0, 0, ["Punch", "Slash"]);
-var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, 0, 0, 0, 0, ["Punch"]);
+var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, "None", 1, 1, 0, 0, ["Punch", "Slash"]);
+var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, "None", 0, 0, 0, 0, ["Punch"]);
 
 // Putting all the creatures into an array to easily search for them later.
 var allCreatures = [
