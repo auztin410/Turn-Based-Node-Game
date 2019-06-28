@@ -72,10 +72,18 @@ function defenseCalc(action, target){
                 if(target.ArmorType === "Plate") {
                     dmgReduction = dmgReduction - 1;
                 }
-                break; 
+                break;
+            case "Sharp":
+                if(target.ArmorType === "Plate" || target.ArmorType === "Chainmail" || target.ArmorType === "Leather") {
+                    dmgReduction = dmgReduction - 1;
+                }
+                break;
+            case "Piercing":
+                
+                break;
         }
     }
-    console.log(dmgReduction);
+    return dmgReduction;
 }
 
 // The base template for creates to build out additional ones with the constructor function.
@@ -112,10 +120,14 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
     this.Action = function(ability, target) {
             this.Skills();
             var action = this.Abilities.find(item => {return item.Name === ability});
-            defenseCalc(action, target);
+            var dmgReduction = defenseCalc(action, target);
+            var dmg;
             if(action != undefined) {
-                // console.log(`The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`);
-                var atk = `The ${this.Name + " " + action.Text} dealing ${action.BaseDMG} point of damage to you.`;
+                dmg = action.BaseDMG + dmgReduction;
+                if(dmg <= 0) {
+                    dmg = 0;
+                }
+                var atk = `The ${this.Name + " " + action.Text} dealing ${dmg} damage to you.`;
                 return atk;
             }
             else {
