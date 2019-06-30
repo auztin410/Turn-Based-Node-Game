@@ -2,7 +2,8 @@ var inquirer = require("inquirer");
 var abilities = require("./abilities.json");
 
 // Function files
-var Inquirer = require("./functions/inquirer");
+var Inquirer = require("./inquirer.json");
+// var village = require("./functions/village");
 
 // This is the Character object.
 var character = {
@@ -155,11 +156,28 @@ var allCreatures = [
 // console.log(kobold.Action("Punch", goblin));
 
 
-var choice = Inquirer.base();
-
-switch(choice) {
-    case "Go to nearest village":
-        Village.village();
-        break;
-}
+inquirer.prompt(Inquirer.base).then(function(response) {
+    switch(response.base) {
+        case "Find a battle":
+            console.log("Search for a battle!");
+            // More code required!
+            break;
+        case "Go to nearest village":
+            console.log("Heading to nearby village.");
+            inquirer.prompt(Inquirer.village).then(function(response) {
+                switch(response.village) {
+                    case "Rest at inn":
+                        console.log("Resting at inn!");
+                        break;
+                    case "Restock supplies":
+                        console.log("Restocking supplies!");
+                        break;
+                    case "Talk to innkeeper":
+                        console.log("Talking to innkeeper about quests and rumors!");
+                        break;
+                }
+            })
+            break;
+    }
+});
 

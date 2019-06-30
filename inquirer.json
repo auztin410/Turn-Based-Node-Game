@@ -1,3 +1,18 @@
 {
-    
+    "base": [
+        {
+            "type": "list",
+            "choices": ["Find a battle", "Go to nearest village", "Head to a city", "Setup camp"],
+            "message": "What do you want to do?",
+            "name": "base"
+        }
+    ],
+    "village": [
+        {
+            "type": "list",
+            "choices": ["Rest at inn", "Restock supplies", "Talk to innkeeper"],
+            "message": "What do you want in the village?",
+            "name": "village"
+        }
+    ]
 }
