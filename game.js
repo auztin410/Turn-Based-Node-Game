@@ -2,8 +2,7 @@ var inquirer = require("inquirer");
 var abilities = require("./abilities.json");
 
 // Function files
-var Base = require("./functions/base");
-var Village = require("./functions/village");
+var Inquirer = require("./functions/inquirer");
 
 // This is the Character object.
 var character = {
@@ -150,33 +149,17 @@ var allCreatures = [
 ];
 
 
-// Function for Village options
-function villageChoices(response) {
-    switch(response) {
-        case "Rest at inn":
-
-    }
-}
-
-
-
-
-
 // Just a testing area for the moment to ensure functions are working properly.
 // console.log(goblin.Abilities);
 // kobold.Action("Punch");
 // console.log(kobold.Action("Punch", goblin));
 
-// Village.village();
-Base.basePrompt().then(function() {
-    switch(choice) {
-        case "Go to nearest village":
-            var res = Village.restAtInn();
-            if(res === true) {
-                console.log("You pay the innkeeper 5 silver to rent a room and rest.");
-            }
-            else if(res === false) {
-                Village.village();
-            }
-    }
-});
+
+var choice = Inquirer.base();
+
+switch(choice) {
+    case "Go to nearest village":
+        Village.village();
+        break;
+}
+
