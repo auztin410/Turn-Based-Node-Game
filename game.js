@@ -1,8 +1,8 @@
 var inquirer = require("inquirer");
-var abilities = require("./abilities.json");
+var abilities = require("./Json/abilities.json");
 
 // Function files
-var Inquirer = require("./inquirer.json");
+var Prompts = require("./Json/prompts.json");
 // var village = require("./functions/village");
 
 // This is the Character object.
@@ -11,6 +11,7 @@ var character = {
     Level: 0,
     Class: null,
     Items: [],
+    Currency: [0, 5, 0, 0],
     Experience: 0,
     Weapon: null,
     Shield: null,
@@ -156,28 +157,79 @@ var allCreatures = [
 // console.log(kobold.Action("Punch", goblin));
 
 
-inquirer.prompt(Inquirer.base).then(function(response) {
-    switch(response.base) {
-        case "Find a battle":
-            console.log("Search for a battle!");
-            // More code required!
-            break;
-        case "Go to nearest village":
-            console.log("Heading to nearby village.");
-            inquirer.prompt(Inquirer.village).then(function(response) {
-                switch(response.village) {
-                    case "Rest at inn":
-                        console.log("Resting at inn!");
+
+
+
+function basePrompt() {
+    inquirer.prompt(Prompts.base).then(function(response) {
+        switch(response.base) {
+    
+            // Battle option from base menu
+            case "Find a battle":
+                console.log("Search for a battle!");
+                // More code required!
+                break;
+    
+            // Village option from base menu
+            case "Go to nearest village":
+                villagePrompt();
+                break;
+    
+            // City option from base menu
+            case "Head to a city":
+                console.log("Heading to the city!");
+                // More code required!
+                break;
+              
+            // Setup camp option from base menu
+            case "Setup camp":
+                console.log("Setting up camp for the night!");
+                // More code required!
+                break;
+        }
+    });
+    
+}
+
+function villagePrompt() {
+    console.log("Heading to nearby village.");
+    inquirer.prompt(Prompts.village).then(function(response) {
+        switch(response.village) {
+
+            case "Rest at inn":
+                console.log("Resting at inn!");
+                inquirer.prompt(Prompts.restAtInn).then(function(response) {
+                    switch(response.restAtInn) {
+                        case "Yes":
+                        if(character.Currency[1] >= 5) {
+                            console.log("You spend 5 silver to rent a room at the inn and rest of the night.");
+                            character.Currency[1] = character.Currency[1] -5;
+                        }
+                        else {
+                            console.log("You do not have 5 silver to rent a room!");
+                            villagePrompt();
+                        }
                         break;
-                    case "Restock supplies":
-                        console.log("Restocking supplies!");
+                        case "No":
+                            villagePrompt();
                         break;
-                    case "Talk to innkeeper":
-                        console.log("Talking to innkeeper about quests and rumors!");
-                        break;
-                }
-            })
-            break;
-    }
-});
+                    }
+                })
+                break;
+
+            case "Restock supplies":
+                console.log("Restocking supplies!");
+                // More code required!
+                break;
+
+            case "Talk to innkeeper":
+                console.log("Talking to innkeeper about quests and rumors!");
+                // More code required!
+                break;
+        }
+    })
+}
+
+basePrompt();
+
 

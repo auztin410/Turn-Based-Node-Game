@@ -14,5 +14,13 @@
             "message": "What do you want in the village?",
             "name": "village"
         }
+    ],
+    "restAtInn": [
+        {
+            "type": "list",
+            "choices": ["Yes", "No"],
+            "message": "Do you want to spend 5 silver to rent a room for the night?",
+            "name": "restAtInn"
+        }
     ]
 }
