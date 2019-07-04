@@ -160,7 +160,7 @@ var allCreatures = [
 
 
 
-
+// Base prompt and starting point of game
 function basePrompt() {
     inquirer.prompt(Prompts.base).then(function(response) {
         switch(response.base) {
@@ -192,6 +192,7 @@ function basePrompt() {
     
 }
 
+// Village function options
 function villagePrompt() {
     console.log("Heading to nearby village.");
     inquirer.prompt(Prompts.village).then(function(response) {
@@ -235,6 +236,7 @@ function villagePrompt() {
     })
 }
 
+// City function options
 function CityPrompt() {
     console.log("Heading to the city!");
     inquirer.prompt(Prompts.city).then(function(response) {
