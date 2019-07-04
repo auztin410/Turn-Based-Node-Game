@@ -95,6 +95,7 @@ function defenseCalc(action, target){
 function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, ArmorType, Resistance, Dodge, Parry, Block, Abilities){
     this.Name = Name,
     this.HP = Constitution*10,
+    this.CurrentHP,
     this.Challenge = Challenge,
     this.Items,
     this.Strength = Strength,
@@ -178,7 +179,7 @@ function basePrompt() {
             // City option from base menu
             case "Head to a city":
                 console.log("Heading to the city!");
-                // More code required!
+                CityPrompt();
                 break;
               
             // Setup camp option from base menu
@@ -196,14 +197,16 @@ function villagePrompt() {
     inquirer.prompt(Prompts.village).then(function(response) {
         switch(response.village) {
 
-            case "Rest at inn":
-                console.log("Resting at inn!");
+            case "Rest at the inn":
+                console.log("Resting at the inn!");
                 inquirer.prompt(Prompts.restAtInn).then(function(response) {
                     switch(response.restAtInn) {
                         case "Yes":
-                        if(character.Currency[1] >= 5) {
+                            var check = currencyCheck("silver", 5);
+                        if(check === true) {
                             console.log("You spend 5 silver to rent a room at the inn and rest of the night.");
                             character.Currency[1] = character.Currency[1] -5;
+                            character.CurrentHP = character.HP;
                         }
                         else {
                             console.log("You do not have 5 silver to rent a room!");
@@ -220,16 +223,67 @@ function villagePrompt() {
             case "Restock supplies":
                 console.log("Restocking supplies!");
                 // More code required!
+                // Need to design out a store front function and prompt setup.
                 break;
 
-            case "Talk to innkeeper":
+            case "Talk to the innkeeper":
                 console.log("Talking to innkeeper about quests and rumors!");
                 // More code required!
+                // Need to setup a quest function and prompt setup.
                 break;
         }
     })
 }
 
+function CityPrompt() {
+    console.log("Heading to the city!");
+    inquirer.prompt(Prompts.city).then(function(response) {
+        switch(response.city) {
+            case "Rest at the inn":
+                console.log("Rest at the inn selected!");
+            break;
+            case "Restock supplies":
+                console.log("Restock supplies selected!");
+            break;
+            case "Talk to the innkeeper":
+                console.log("Talk to the innkeeper selected!");
+            break;
+            case "Go to the blacksmith":
+                console.log("Go to the blacksmith selected!");
+            break;
+        }
+    })
+}
+
+// Call to check if the player has enough of a given currency.
+function currencyCheck(type, cost) {
+    switch(type) {
+        case "bronze":
+            if(character.Currency[0] >= cost) {
+                return true;
+            }
+            return false;
+        case "silver":
+            if(character.Currency[1] >= cost) {
+                return true;
+            }
+            return false;
+        case "gold":
+            if(character.Currency[2] >= cost) {
+                return true;
+            }
+            return false;
+        case "platinum":
+            if(character.Currency[3] >= cost) {
+                return true;
+            }
+            return false;
+    }
+}
+
+
+
+// Calling the base prompt to state the game.
 basePrompt();
 
 

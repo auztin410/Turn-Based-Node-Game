@@ -10,9 +10,17 @@
     "village": [
         {
             "type": "list",
-            "choices": ["Rest at inn", "Restock supplies", "Talk to innkeeper"],
-            "message": "What do you want in the village?",
+            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper"],
+            "message": "What do you want to do in the Village?",
             "name": "village"
+        }
+    ],
+    "city": [
+        {
+            "type": "list",
+            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper", "Go to the blacksmith"],
+            "message": "What do you want to do in the City?",
+            "name": "city"
         }
     ],
     "restAtInn": [
