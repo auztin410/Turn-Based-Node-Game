@@ -23,6 +23,14 @@
             "name": "city"
         }
     ],
+    "camp": [
+        {
+            "type": "list",
+            "choices": ["Survival", "Training", "Eat", "Equipment", "Rest"],
+            "message": "What do you want do you wish to do?",
+            "name": "camp"
+        }
+    ],
     "restAtInn": [
         {
             "type": "list",

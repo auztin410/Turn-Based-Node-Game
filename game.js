@@ -179,13 +179,13 @@ function basePrompt() {
             // City option from base menu
             case "Head to a city":
                 console.log("Heading to the city!");
-                CityPrompt();
+                cityPrompt();
                 break;
               
             // Setup camp option from base menu
             case "Setup camp":
                 console.log("Setting up camp for the night!");
-                // More code required!
+                setupCamp();
                 break;
         }
     });
@@ -237,7 +237,7 @@ function villagePrompt() {
 }
 
 // City function options
-function CityPrompt() {
+function cityPrompt() {
     console.log("Heading to the city!");
     inquirer.prompt(Prompts.city).then(function(response) {
         switch(response.city) {
@@ -254,7 +254,53 @@ function CityPrompt() {
                 console.log("Go to the blacksmith selected!");
             break;
         }
-    })
+    });
+}
+
+// Setup a camp function options
+function setupCamp() {
+    var actions = 3;
+    camp(actions);
+}
+
+// Camp function and options
+function camp(actions) {
+    if(actions > 0) {
+        console.log(`You have ${actions} actions left`);
+        inquirer.prompt(Prompts.camp).then(function(response) {
+            switch(response.camp) {
+                case "Survival":
+                // Survival prompts (building a fire, setting up traps/alarms, going hunting/fishing).
+                actions --;
+                camp(actions);
+                break;
+                case "Training":
+                // Training prompts (reading, training with a weapon, or skill).
+                actions --;
+                camp(actions);
+                break;
+                case "Eat":
+                // Eating something that you have prepared or ready to eat.
+                actions --;
+                camp(actions);
+                break;
+                case "Equipment":
+                // Equipment prompts (Sharpening/oiling your weapon, cleaning/removing your armor).
+                actions --;
+                camp(actions);
+                break;
+                case "Rest":
+                // Resting will end the night and give a bonus depending on remaining actions left.
+                actions --;
+                camp(actions);
+                break;
+            }
+        });
+    }
+    else {
+        console.log("You used up all your actions and fall asleep in your camp for the night.");
+        // Trigger camp event function
+    }
 }
 
 // Call to check if the player has enough of a given currency.
