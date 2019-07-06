@@ -243,6 +243,15 @@ function cityPrompt() {
         switch(response.city) {
             case "Rest at the inn":
                 console.log("Rest at the inn selected!");
+                var check = currencyCheck("silver", 50);
+                if(check === true) {
+                    character.Currency[1] = character.Currency[1] -50;
+                    character.CurrentHP = character.HP;
+                }
+                else {
+                    console.log("You do not have 50 silver to rent a room.");
+                    cityPrompt();
+                }
             break;
             case "Restock supplies":
                 console.log("Restock supplies selected!");
