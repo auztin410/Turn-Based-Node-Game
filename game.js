@@ -8,7 +8,7 @@ var Prompts = require("./Json/prompts.json");
 // This is the Character object.
 var character = {
     Name: "",
-    Level: 0,
+    Level: 1,
     Class: null,
     Items: [],
     Currency: [0, 5, 0, 0],
@@ -145,10 +145,11 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
 // Creating each creature with their stats.
 var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, "None", 1, 1, 0, 0, ["Punch", "Slash"]);
 var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, "None", 0, 0, 0, 0, ["Punch"]);
+var thief = new Creature("Thief", 1, 2, 4, 3, 3, 4, 3, 5, 2, "Leather", 0, 1, 1, 0, ["Punch", "Slash"]);
 
 // Putting all the creatures into an array to easily search for them later.
 var allCreatures = [
-    goblin, kobold
+    goblin, kobold, thief
 ];
 
 
@@ -159,6 +160,12 @@ var allCreatures = [
 
 
 
+// Shuffle Array function
+function shuffle(array) {
+    array.sort(() => Math.random() - 0.5);
+    return array;
+  }
+
 
 // Base prompt and starting point of game
 function basePrompt() {
@@ -167,7 +174,7 @@ function basePrompt() {
     
             // Battle option from base menu
             case "Find a battle":
-                console.log("Search for a battle!");
+                battlePrompt();
                 // More code required!
                 break;
     
@@ -190,6 +197,16 @@ function basePrompt() {
         }
     });
     
+}
+
+
+// Battle function options
+function battlePrompt() {
+    console.log("Searching for a battle!");
+    var result = allCreatures.filter(creature => creature.Challenge === character.Level);
+    var shuffled = shuffle(result);
+    shuffled.length = 4;
+    console.log(shuffled);
 }
 
 // Village function options
