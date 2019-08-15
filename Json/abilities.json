@@ -14,13 +14,5 @@
         "Type": ["Physical", "Sharp"],
         "Requirement": ["Sword", "Dagger"],
         "Text": "uses its weapon to slash at you."
-    },
-    {
-        "Name": "Webbing",
-        "BaseDMG": 0,
-        "Modifier": [true, [], []],
-        "Type": [],
-        "Requirement": [],
-        "Text": "spit out webbing to wrap you up."
     }
 ]
