@@ -146,10 +146,11 @@ function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligen
 var goblin = new Creature("Goblin", 1, 2, 4, 3, 1, 1, 1, 4, 2, "None", 1, 1, 0, 0, ["Punch", "Slash"]);
 var kobold = new Creature("Kobold", 1, 2, 3, 4, 2, 1, 2, 3, 0, "None", 0, 0, 0, 0, ["Punch"]);
 var thief = new Creature("Thief", 1, 2, 4, 3, 3, 4, 3, 5, 2, "Leather", 0, 1, 1, 0, ["Punch", "Slash"]);
+var spider = new Creature("Spider", 1, 2, 4, 2, 2, 1, 2, 3, 1, "None", 0, 1, 0, 0, ["Webbing"])
 
 // Putting all the creatures into an array to easily search for them later.
 var allCreatures = [
-    goblin, kobold, thief
+    goblin, kobold, thief, spider
 ];
 
 
@@ -207,6 +208,22 @@ function battlePrompt() {
     var shuffled = shuffle(result);
     shuffled.length = 4;
     console.log(shuffled);
+    var creaturePrompt = [
+        {
+            type: "list",
+            choices: [],
+            message: "Choose your battle!",
+            name: "battle"
+        }
+    ];
+    for(i = 0; i < shuffled.length; i++) {
+        var target = shuffled[i].Name;
+        console.log(target);
+        creaturePrompt[0].choices.push(shuffled[i].Name);
+    }
+    inquirer.prompt(creaturePrompt).then(function(response) {
+        console.log(`You chose to fight ${response.battle}`);
+    })
 }
 
 // Village function options
