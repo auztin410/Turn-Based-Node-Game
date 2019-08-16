@@ -10,6 +10,9 @@ var character = {
     Name: "",
     Level: 1,
     Class: null,
+    HP: 100,
+    CurrentHP: 100,
+    Abilities: ["Slash", "Punch", "Block", "Kick"],
     Items: [],
     Currency: [0, 5, 0, 0],
     Experience: 0,
@@ -95,7 +98,7 @@ function defenseCalc(action, target){
 function Creature(Name, Challenge, Strength, Dexterity, Constitution, Intelligence, Charisma, Wisdom, Speed, Armor, ArmorType, Resistance, Dodge, Parry, Block, Abilities){
     this.Name = Name,
     this.HP = Constitution*10,
-    this.CurrentHP,
+    this.CurrentHP = this.HP,
     this.Challenge = Challenge,
     this.Items,
     this.Strength = Strength,
@@ -153,11 +156,13 @@ var allCreatures = [
 ];
 
 
+// Global Enemy variable
+var enemy;
+
 // Just a testing area for the moment to ensure functions are working properly.
 // console.log(goblin.Abilities);
 // kobold.Action("Punch");
 // console.log(kobold.Action("Punch", goblin));
-
 
 
 // Shuffle Array function
@@ -200,7 +205,7 @@ function basePrompt() {
 }
 
 
-// Battle function options
+// Battle prompt function options
 function battlePrompt() {
     console.log("Searching for a battle!");
     var result = allCreatures.filter(creature => creature.Challenge === character.Level);
@@ -223,7 +228,37 @@ function battlePrompt() {
     }
     inquirer.prompt(creaturePrompt).then(function(response) {
         console.log(`You chose to fight ${response.battle}`);
+        battle(response.battle);
     })
+}
+
+// Action prompt
+var actionPrompt = [
+    {
+        type: "list",
+        choices: character.Abilities,
+        message: "What do you wish to do?",
+        name: "action"
+    }
+];
+
+// Action prompt function
+function action() {
+    inquirer.prompt(actionPrompt).then(function(response) {
+        console.log(`You use ${response.action}`);
+        if(enemy.CurrentHP > 0 || character.CurrentHP > 0) {
+            action();
+        }
+        else {
+            console.log("Someone died...");
+        }
+    });
+}
+
+// Battle function
+function battle(c) {
+    enemy = allCreatures.find(creature => creature.Name === c);
+    action();
 }
 
 // Village function options
