@@ -247,6 +247,7 @@ function action() {
     inquirer.prompt(actionPrompt).then(function(response) {
         console.log(`You use ${response.action}`);
         if(enemy.CurrentHP > 0 || character.CurrentHP > 0) {
+            enemyAttack();
             action();
         }
         else {
@@ -259,6 +260,26 @@ function action() {
 function battle(c) {
     enemy = allCreatures.find(creature => creature.Name === c);
     action();
+}
+
+// Enemy Random Attack Function
+function enemyAttack() {
+    var  attacks = enemy.Abilities;
+    var attack = attacks[Math.floor(Math.random()*attacks.length)];
+    var res = abilities.find(function(ability) {
+       return ability.Name == attack;
+    });
+    calculateAttack(res);
+}
+
+// Calculate attack
+function calculateAttack(attack) {
+    if(attack.Modifier[0] === true) {
+        console.log("Attack Modifier is true");
+        var stat = attack.Modifier[1];
+        var dmg = attack.BaseDMG + enemy[stat];
+        console.log(dmg);
+    }
 }
 
 // Village function options

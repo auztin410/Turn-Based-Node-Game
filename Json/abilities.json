@@ -2,17 +2,15 @@
     {
         "Name": "Punch",
         "BaseDMG": 1,
-        "Modifier": [true, ["Strength"], ["Add Str"]],
+        "Modifier": [true,"Strength","+"],
         "Type": ["Physical", "Blunt"],
-        "Requirement": [],
         "Text": "uses its closed fist to attack you."
     },
     {
         "Name": "Slash",
         "BaseDMG": 2,
-        "Modifier": [true, ["Strength", "Dexterity"], ["+Str", "+Dex"]],
+        "Modifier": [true,"Dexterity","+"],
         "Type": ["Physical", "Sharp"],
-        "Requirement": ["Sword", "Dagger"],
         "Text": "uses its weapon to slash at you."
     }
 ]
