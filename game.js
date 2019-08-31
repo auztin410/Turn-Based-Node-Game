@@ -246,6 +246,7 @@ var actionPrompt = [
 function action() {
     inquirer.prompt(actionPrompt).then(function(response) {
         console.log(`You use ${response.action}`);
+        calculatePlayersAttack(response.action);
         if(enemy.CurrentHP > 0 || character.CurrentHP > 0) {
             enemyAttack();
             action();
@@ -254,6 +255,14 @@ function action() {
             console.log("Someone died...");
         }
     });
+}
+
+// Calculate Players Attack DMG
+function calculatePlayersAttack(a) {
+res = abilities.find(function(ability) {
+    return ability.Name == a;
+});
+calculateAttack(res)
 }
 
 // Battle function
@@ -278,7 +287,7 @@ function calculateAttack(attack) {
         console.log("Attack Modifier is true");
         var stat = attack.Modifier[1];
         var dmg = attack.BaseDMG + enemy[stat];
-        console.log(dmg);
+        console.log(attack.Text + " dealing " + dmg + " damage.");
     }
 }
 
