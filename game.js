@@ -258,6 +258,9 @@ function action() {
         }
         else {
             console.log(`${enemy.Name} has been slain!`);
+            experienceGain();
+            basePrompt();
+            // Experience gain function and level up function goes here!
         }
     });
 }
@@ -300,6 +303,17 @@ function calculateAttack(attack) {
     }
 }
 
+// Add Experience and Check for Level Up and clearing enemy variable
+function experienceGain() {
+var challenge = enemy.Challenge;
+var exp = challenge * 25;
+console.log(`You have gained ${exp} from defeating the ${enemy.Name}`);
+character.Experience = character.Experience + exp;
+console.log(`You have a total of ${character.Experience} experience.`);
+enemy.CurrentHP = enemy.HP;
+enemy = null;
+}
+
 // Village function options
 function villagePrompt() {
     console.log("Heading to nearby village.");
@@ -316,6 +330,7 @@ function villagePrompt() {
                             console.log("You spend 5 silver to rent a room at the inn and rest of the night.");
                             character.Currency[1] = character.Currency[1] -5;
                             character.CurrentHP = character.HP;
+                            villagePrompt();
                         }
                         else {
                             console.log("You do not have 5 silver to rent a room!");
