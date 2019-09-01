@@ -247,12 +247,17 @@ function action() {
     inquirer.prompt(actionPrompt).then(function(response) {
         console.log(`You use ${response.action}`);
         calculatePlayersAttack(response.action);
-        if(enemy.CurrentHP > 0 || character.CurrentHP > 0) {
+        if(enemy.CurrentHP > 0) {
             enemyAttack();
+            if(character.CurrentHP <= 0) {
+                console.log("You have been killed...");
+                console.log("GAME OVER");
+                return;
+            }
             action();
         }
         else {
-            console.log("Someone died...");
+            console.log(`${enemy.Name} has been slain!`);
         }
     });
 }
@@ -262,7 +267,9 @@ function calculatePlayersAttack(a) {
 res = abilities.find(function(ability) {
     return ability.Name == a;
 });
-calculateAttack(res)
+var dmg = calculateAttack(res);
+enemy.CurrentHP = enemy.CurrentHP - dmg;
+console.log(`${enemy.Name} has ${enemy.CurrentHP} HP left.`);
 }
 
 // Battle function
@@ -278,16 +285,18 @@ function enemyAttack() {
     var res = abilities.find(function(ability) {
        return ability.Name == attack;
     });
-    calculateAttack(res);
+    var dmg = calculateAttack(res);
+    character.CurrentHP = character.CurrentHP - dmg;
+    console.log(`You have ${character.CurrentHP} HP left.`);
 }
 
 // Calculate attack
 function calculateAttack(attack) {
     if(attack.Modifier[0] === true) {
-        console.log("Attack Modifier is true");
         var stat = attack.Modifier[1];
         var dmg = attack.BaseDMG + enemy[stat];
         console.log(attack.Text + " dealing " + dmg + " damage.");
+        return dmg;
     }
 }
 
