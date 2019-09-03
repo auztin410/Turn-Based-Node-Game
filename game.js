@@ -348,13 +348,18 @@ function villagePrompt() {
                 console.log("Restocking supplies!");
                 // More code required!
                 // Need to design out a store front function and prompt setup.
+                villagePrompt();
                 break;
 
             case "Talk to the innkeeper":
                 console.log("Talking to innkeeper about quests and rumors!");
                 // More code required!
                 // Need to setup a quest function and prompt setup.
+                villagePrompt();
                 break;
+            case "Return to adventuring":
+                console.log("You leave the village and return to adventuring.");
+                basePrompt();
         }
     })
 }
@@ -365,25 +370,32 @@ function cityPrompt() {
     inquirer.prompt(Prompts.city).then(function(response) {
         switch(response.city) {
             case "Rest at the inn":
-                console.log("Rest at the inn selected!");
-                var check = currencyCheck("silver", 50);
+                var check = currencyCheck("silver", 5);
                 if(check === true) {
-                    character.Currency[1] = character.Currency[1] -50;
+                    character.Currency[1] = character.Currency[1] -5;
                     character.CurrentHP = character.HP;
+                    console.log("You spend 5 silver to rent a room at the inn and rest of the night.")
+                    cityPrompt();
                 }
                 else {
-                    console.log("You do not have 50 silver to rent a room.");
+                    console.log("You do not have 5 silver to rent a room!");
                     cityPrompt();
                 }
             break;
             case "Restock supplies":
                 console.log("Restock supplies selected!");
+                // More code goes here!
+                cityPrompt();
             break;
             case "Talk to the innkeeper":
                 console.log("Talk to the innkeeper selected!");
+                // More code goes here!
+                cityPrompt();
             break;
             case "Go to the blacksmith":
                 console.log("Go to the blacksmith selected!");
+                // More code goes here!
+                cityPrompt();
             break;
         }
     });

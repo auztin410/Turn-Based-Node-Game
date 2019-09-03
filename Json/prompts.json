@@ -10,7 +10,7 @@
     "village": [
         {
             "type": "list",
-            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper"],
+            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper", "Return to adventuring"],
             "message": "What do you want to do in the Village?",
             "name": "village"
         }
