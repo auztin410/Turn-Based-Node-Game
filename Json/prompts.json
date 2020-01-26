@@ -1,42 +1,50 @@
 {
-    "base": [
-        {
-            "type": "list",
-            "choices": ["Find a battle", "Go to nearest village", "Head to a city", "Setup camp"],
-            "message": "What do you want to do?",
-            "name": "base"
-        }
-    ],
-    "village": [
-        {
-            "type": "list",
-            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper"],
-            "message": "What do you want to do in the Village?",
-            "name": "village"
-        }
-    ],
-    "city": [
-        {
-            "type": "list",
-            "choices": ["Rest at the inn", "Restock supplies", "Talk to the innkeeper", "Go to the blacksmith"],
-            "message": "What do you want to do in the City?",
-            "name": "city"
-        }
-    ],
-    "camp": [
-        {
-            "type": "list",
-            "choices": ["Survival", "Training", "Eat", "Equipment", "Rest"],
-            "message": "What do you want do you wish to do?",
-            "name": "camp"
-        }
-    ],
-    "restAtInn": [
-        {
-            "type": "list",
-            "choices": ["Yes", "No"],
-            "message": "Do you want to spend 5 silver to rent a room for the night?",
-            "name": "restAtInn"
-        }
-    ]
+	"base": [
+		{
+			"type": "list",
+			"choices": [ "Find a battle", "Go to nearest village", "Head to a city", "Setup camp", "Character Info" ],
+			"message": "What do you want to do?",
+			"name": "base"
+		}
+	],
+	"village": [
+		{
+			"type": "list",
+			"choices": [ "Rest at the inn", "Restock supplies", "Talk to the innkeeper", "Return to Adventuring" ],
+			"message": "What do you want to do in the Village?",
+			"name": "village"
+		}
+	],
+	"city": [
+		{
+			"type": "list",
+			"choices": [ "Rest at the inn", "Restock supplies", "Talk to the innkeeper", "Go to the blacksmith" ],
+			"message": "What do you want to do in the City?",
+			"name": "city"
+		}
+	],
+	"camp": [
+		{
+			"type": "list",
+			"choices": [ "Survival", "Training", "Eat", "Equipment", "Rest" ],
+			"message": "What do you want do you wish to do?",
+			"name": "camp"
+		}
+	],
+	"restAtInn": [
+		{
+			"type": "list",
+			"choices": [ "Yes", "No" ],
+			"message": "Do you want to spend 5 silver to rent a room for the night?",
+			"name": "restAtInn"
+		}
+	],
+	"characterInfo": [
+		{
+			"type": "list",
+			"choices": [ "Stats", "Currency", "Inventory" ],
+			"message": "What character info are you looking for?",
+			"name": "characterInfo"
+		}
+	]
 }
