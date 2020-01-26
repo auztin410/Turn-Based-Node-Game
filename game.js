@@ -260,6 +260,7 @@ var actionPrompt = [
 
 // Action prompt function
 function action() {
+<<<<<<< HEAD
 	inquirer.prompt(actionPrompt).then(function(response) {
 		console.log(`You use ${response.action}`);
 		calculatePlayersAttack(response.action);
@@ -276,6 +277,27 @@ function action() {
 			basePrompt();
 		}
 	});
+=======
+    inquirer.prompt(actionPrompt).then(function(response) {
+        console.log(`You use ${response.action}`);
+        calculatePlayersAttack(response.action);
+        if(enemy.CurrentHP > 0) {
+            enemyAttack();
+            if(character.CurrentHP <= 0) {
+                console.log("You have been killed...");
+                console.log("GAME OVER");
+                return;
+            }
+            action();
+        }
+        else {
+            console.log(`${enemy.Name} has been slain!`);
+            experienceGain();
+            basePrompt();
+            // Experience gain function and level up function goes here!
+        }
+    });
+>>>>>>> 8638df2021c7153615c8babc1588281b9e2eb1c7
 }
 
 // Calculate Players Attack DMG
@@ -316,8 +338,20 @@ function calculateAttack(attack) {
 	}
 }
 
+// Add Experience and Check for Level Up and clearing enemy variable
+function experienceGain() {
+var challenge = enemy.Challenge;
+var exp = challenge * 25;
+console.log(`You have gained ${exp} from defeating the ${enemy.Name}`);
+character.Experience = character.Experience + exp;
+console.log(`You have a total of ${character.Experience} experience.`);
+enemy.CurrentHP = enemy.HP;
+enemy = null;
+}
+
 // Village function options
 function villagePrompt() {
+<<<<<<< HEAD
 	console.log('Heading to nearby village.');
 	inquirer.prompt(Prompts.village).then(function(response) {
 		switch (response.village) {
@@ -363,10 +397,59 @@ function villagePrompt() {
 				basePrompt();
 		}
 	});
+=======
+    console.log("Heading to nearby village.");
+    inquirer.prompt(Prompts.village).then(function(response) {
+        switch(response.village) {
+
+            case "Rest at the inn":
+                console.log("Resting at the inn!");
+                inquirer.prompt(Prompts.restAtInn).then(function(response) {
+                    switch(response.restAtInn) {
+                        case "Yes":
+                            var check = currencyCheck("silver", 5);
+                        if(check === true) {
+                            console.log("You spend 5 silver to rent a room at the inn and rest of the night.");
+                            character.Currency[1] = character.Currency[1] -5;
+                            character.CurrentHP = character.HP;
+                            villagePrompt();
+                        }
+                        else {
+                            console.log("You do not have 5 silver to rent a room!");
+                            villagePrompt();
+                        }
+                        break;
+                        case "No":
+                            villagePrompt();
+                        break;
+                    }
+                })
+                break;
+
+            case "Restock supplies":
+                console.log("Restocking supplies!");
+                // More code required!
+                // Need to design out a store front function and prompt setup.
+                villagePrompt();
+                break;
+
+            case "Talk to the innkeeper":
+                console.log("Talking to innkeeper about quests and rumors!");
+                // More code required!
+                // Need to setup a quest function and prompt setup.
+                villagePrompt();
+                break;
+            case "Return to adventuring":
+                console.log("You leave the village and return to adventuring.");
+                basePrompt();
+        }
+    })
+>>>>>>> 8638df2021c7153615c8babc1588281b9e2eb1c7
 }
 
 // City function options
 function cityPrompt() {
+<<<<<<< HEAD
 	console.log('Heading to the city!');
 	inquirer.prompt(Prompts.city).then(function(response) {
 		switch (response.city) {
@@ -392,6 +475,41 @@ function cityPrompt() {
 				break;
 		}
 	});
+=======
+    console.log("Heading to the city!");
+    inquirer.prompt(Prompts.city).then(function(response) {
+        switch(response.city) {
+            case "Rest at the inn":
+                var check = currencyCheck("silver", 5);
+                if(check === true) {
+                    character.Currency[1] = character.Currency[1] -5;
+                    character.CurrentHP = character.HP;
+                    console.log("You spend 5 silver to rent a room at the inn and rest of the night.")
+                    cityPrompt();
+                }
+                else {
+                    console.log("You do not have 5 silver to rent a room!");
+                    cityPrompt();
+                }
+            break;
+            case "Restock supplies":
+                console.log("Restock supplies selected!");
+                // More code goes here!
+                cityPrompt();
+            break;
+            case "Talk to the innkeeper":
+                console.log("Talk to the innkeeper selected!");
+                // More code goes here!
+                cityPrompt();
+            break;
+            case "Go to the blacksmith":
+                console.log("Go to the blacksmith selected!");
+                // More code goes here!
+                cityPrompt();
+            break;
+        }
+    });
+>>>>>>> 8638df2021c7153615c8babc1588281b9e2eb1c7
 }
 
 // Setup a camp function options
